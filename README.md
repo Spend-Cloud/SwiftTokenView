@@ -1,7 +1,7 @@
 # SwiftTokenView
 
 <p align="center">
-  <img src="https://github.com/Spend-Cloud/swifttokenview/raw/main/swifttokenview.png" />
+  <img src="https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/main/swifttokenview.png" />
 </p>
 
 ![CI](https://github.com/Spend-Cloud/SwiftTokenView/workflows/CI/badge.svg)
@@ -43,6 +43,10 @@
 `SwiftTokenView` is released under the MIT license. See LICENSE for details.
 
 ## About Visma | ProActive
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/main/VismaProactive.png" />
+</p>
 
 `SwiftTokenView` is maintained by [Visma | ProActive][website] as part of Visma, we specialize in creating the ultimate spend cloud solution for our clients. Our team follows agile methodologies to deliver the best resulting software on the market. 
 
