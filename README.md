@@ -20,6 +20,24 @@
 
 ## Examples
 
+You can show a tokenview by creating a `StaticTokenView()` and adding tokens into it. These tokens need to conform to the `StaticToken` protocol. 
+
+```
+        let tokenView = StaticTokenView()
+        
+        for item in 0...200 {
+            tokenView.addToken(SampleObject(id: item, name: "token \(item)"))
+        }
+        
+        self.view.addSubview(tokenView)
+```
+
+You can also add a batch of tokens at once by using
+
+```
+        tokenView.addTokens(tokens)
+```
+
 ### to be added
 
 ## Requirements
