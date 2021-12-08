@@ -63,9 +63,9 @@ public protocol TokenStyle {
     var backgroundColor: UIColor { get set }
 }
 
-public struct DefaultStyle: TokenStyle {
-    public var textColor: UIColor = .blue
-    public var backgroundColor: UIColor = .white
+struct DefaultStyle: TokenStyle {
+    var textColor: UIColor = .blue
+    var backgroundColor: UIColor = .white
 }
 
 public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
