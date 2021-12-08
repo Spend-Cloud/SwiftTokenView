@@ -20,7 +20,7 @@
 
 ## Examples
 
-You can show a tokenview by creating a `StaticTokenView()` and adding tokens into it. These tokens need to conform to the `StaticToken` protocol. 
+### You can show a tokenview by creating a `StaticTokenView()` and adding tokens into it. These tokens need to conform to the `StaticToken` protocol. 
 
 ```
 let tokenView = StaticTokenView()
@@ -32,13 +32,13 @@ for item in 0...200 {
 self.view.addSubview(tokenView)
 ```
 
-You can also add a batch of tokens at once by using
+### You can also add a batch of tokens at once by using
 
 ```
 tokenView.addTokens(tokens)
 ```
 
-if you wish to style the tokens you can add a style by creating a style object. 
+### if you wish to style the tokens you can add a style by creating a style object. 
 
 ```
 struct CustomTokenStyle: TokenStyle {
@@ -47,13 +47,11 @@ struct CustomTokenStyle: TokenStyle {
 }
 ```
 
-Then you can override the default style
+### Then you can override the default style
 
 ```
 tokenView.style = CustomTokenStyle
 ```
-
-### to be added
 
 ## Requirements
 
