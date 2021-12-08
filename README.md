@@ -76,7 +76,7 @@ tokenView.style = CustomTokenStyle
 ## About Visma | ProActive
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/main/VismaProactive.png" />
+  <img src="https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/main/VismaProActive.png" />
 </p>
 
 [SwiftTokenView] is maintained by Visma | ProActive. What started as an internship assignment snowballed into the Spend Cloud software solution we know today. We are a proud part of Visma with the same mentality as in those early days: ‘let’s just do it and have fun too’. With this 100% cloud-based solution, you can digitize, automate and optimize all business expenses processes. Our goal is to keep improving the ultimate spend solution, which we can achieve by following agile methodologies to deliver a best in class spend management system: the Spend Cloud. 
