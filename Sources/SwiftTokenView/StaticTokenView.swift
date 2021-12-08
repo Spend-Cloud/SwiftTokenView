@@ -58,9 +58,21 @@ class StaticTokenLayout : UICollectionViewFlowLayout {
     }
 }
 
+public protocol TokenStyle {
+    var textColor: UIColor { get set }
+    var backgroundColor: UIColor { get set }
+}
+
+public struct DefaultStyle: TokenStyle {
+    public var textColor: UIColor = .blue
+    public var backgroundColor: UIColor = .white
+}
+
 public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     let placeholderLabel = UILabel(frame: CGRect(x: 8, y: 0, width: 200, height: 50))
+    
+    public var style: TokenStyle = DefaultStyle()
     
     private let collectionView: UICollectionView = {
         
@@ -78,9 +90,7 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,11 +98,18 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
         setupView()
     }
     
+    public func removeToken(_ tokenToDelete: StaticToken) {
+        
+        tokens.removeAll { token in
+            token.id == tokenToDelete.id
+        }
+        collectionView.reloadData()
+    }
+    
     public func addToken(_ token: StaticToken) {
         
         tokens.append(token)
         collectionView.reloadData()
-        
     }
     
     public func addTokens(_ tokens: [StaticToken]) {
@@ -114,9 +131,8 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
         let cell: StaticTokenFieldCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
         let token = tokens[indexPath.item]
-        cell.configure(with: token.tokenName())
+        cell.configure(with: token.tokenName(), style: style)
         return cell
-        
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -167,10 +183,10 @@ class StaticTokenFieldCollectionViewCell: UICollectionViewCell, ReusableView {
     
     var titleLabel: UILabel!
     
-    func configure(with title: String) {
+    func configure(with title: String, style: TokenStyle) {
         titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.textColor = .white
+        titleLabel.textColor = style.textColor
         titleLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)
@@ -179,7 +195,7 @@ class StaticTokenFieldCollectionViewCell: UICollectionViewCell, ReusableView {
         titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
         self.layer.cornerRadius = 10
-        self.backgroundColor = .blue
+        self.backgroundColor = style.backgroundColor
     }
     
     override func prepareForReuse() {
