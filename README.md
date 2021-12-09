@@ -10,17 +10,51 @@
 
 `SwiftTokenView` is a lightweight package that lets you create easy to use `Token` views to use in UIKit or SwiftUI.
 
-## Features
+## Current features
 
-- [] Initial setup of creating simple tokens in UIKit
-- [] Initial setup of creating simple tokens in SwiftUI
-- [] Support for iOS/Mac OS X/tvOS/watchOS/Linux
+- [x] Initial setup of creating simple tokens in UIKit
 - [x] Support for Swift Package Manager
-- [] Support for CocoaPods
+
+## Features in progress
+
+- Initial setup of creating simple tokens in SwiftUI
+- Support for iOS/Mac OS X/tvOS/watchOS/Linux
+- Support for CocoaPods
 
 ## Examples
 
-### to be added
+### You can show a tokenview by creating a `StaticTokenView()` and adding tokens into it. These tokens need to conform to the `StaticToken` protocol. 
+
+```
+let tokenView = StaticTokenView()
+
+for item in 0...200 {
+    tokenView.addToken(SampleObject(id: item, name: "token \(item)"))
+}
+
+self.view.addSubview(tokenView)
+```
+
+### You can also add a batch of tokens at once by using
+
+```
+tokenView.addTokens(tokens)
+```
+
+### if you wish to style the tokens you can add a style by creating a style object. 
+
+```
+struct CustomTokenStyle: TokenStyle {
+    var textColor: UIColor = .white
+    var backgroundColor: UIColor = .red
+}
+```
+
+### Then you can override the default style
+
+```
+tokenView.style = CustomTokenStyle
+```
 
 ## Requirements
 
