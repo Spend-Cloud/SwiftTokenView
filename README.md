@@ -10,13 +10,16 @@
 
 `SwiftTokenView` is a lightweight package that lets you create easy to use `Token` views to use in UIKit or SwiftUI.
 
-## Features
+## Current features
 
-- [] Initial setup of creating simple tokens in UIKit
-- [] Initial setup of creating simple tokens in SwiftUI
-- [] Support for iOS/Mac OS X/tvOS/watchOS/Linux
+- [x] Initial setup of creating simple tokens in UIKit
 - [x] Support for Swift Package Manager
-- [] Support for CocoaPods
+
+## Features in progress
+
+- Initial setup of creating simple tokens in SwiftUI
+- Support for iOS/Mac OS X/tvOS/watchOS/Linux
+- Support for CocoaPods
 
 ## Examples
 
