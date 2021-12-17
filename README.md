@@ -24,7 +24,7 @@
 
 ## SwiftUI Examples
 
-### the tokens support a @State property that you can modify the tokens in reactively.
+### the tokens support a @State property that you can modify to change the tokens in a reactive way.
 
 ```@State var tokens: [StaticToken] = []```
 
