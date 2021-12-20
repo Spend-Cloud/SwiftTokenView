@@ -12,8 +12,9 @@
 
 ## Current features
 
-- [x] Initial setup of creating simple tokens in UIKit
+- [x] Initial setup of creating simple tokens in SwiftUI
 - [x] Support for Swift Package Manager
+- [x] UIKit Support
 
 ## Features in progress
 
@@ -21,7 +22,63 @@
 - Support for iOS/Mac OS X/tvOS/watchOS/Linux
 - Support for CocoaPods
 
-## Examples
+## SwiftUI Examples
+
+### the tokens support a @State property that you can modify to change the tokens in a reactive way.
+
+```@State var tokens: [StaticToken] = []```
+
+### it's as easy as creating a SwiftTokenView and adding it to where you want to show it. 
+
+```
+SwiftTokenView(tokenStyle: CustomTokenStyle(), tokens: $tokens)
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+    .background(Color.green)
+```
+
+### full example
+
+```
+struct MainView: View {
+    
+    @State var tokens: [StaticToken] = []
+    
+    var body: some View {
+        VStack {
+            SwiftTokenView(tokenStyle: CustomTokenStyle(), tokens: $tokens)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .background(Color.green)
+                .onAppear {
+                    var tokens: [StaticToken] = []
+                    for item in 0...2 {
+                        tokens.append(SampleObject(id: item, name: "token \(item)"))
+                    }
+                    
+                    self.tokens = tokens
+                }
+            
+            Spacer()
+            
+            HStack {
+                Button(action: {
+                        tokens.append(SampleObject(id: tokens.count + 2, name: "token \(tokens.count + 2)"))
+                    }, label: {
+                        Text("Add token")
+                })
+                
+                Button(action: {
+                        tokens.removeLast()
+                    }, label: {
+                        Text("Remove token")
+                })
+            }
+        }
+    }
+}
+```
+
+
+## UIKit Examples
 
 ### You can show a tokenview by creating a `StaticTokenView()` and adding tokens into it. These tokens need to conform to the `StaticToken` protocol. 
 

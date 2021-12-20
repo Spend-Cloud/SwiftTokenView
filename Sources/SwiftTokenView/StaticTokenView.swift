@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StaticTokenView.swift
 //  
 //
 //  Created by Reshad Farid on 06/12/2021.
@@ -64,8 +64,8 @@ public protocol TokenStyle {
 }
 
 struct DefaultStyle: TokenStyle {
-    var textColor: UIColor = .blue
-    var backgroundColor: UIColor = .white
+    var textColor: UIColor = .white
+    var backgroundColor: UIColor = .systemBlue
 }
 
 public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -80,7 +80,6 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
         layout.estimatedItemSize = CGSize(width: 50, height: 24)
         layout.minimumLineSpacing = 4
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor.systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -113,6 +112,11 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
     }
     
     public func addTokens(_ tokens: [StaticToken]) {
+        self.tokens = tokens.sorted(by: { $0.id > $1.id })
+        collectionView.reloadData()
+    }
+    
+    public func insertTokens(_ tokens: [StaticToken]) {
         
         if tokens.count > 5 {
             self.tokens.removeAll()
@@ -162,6 +166,8 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
 
         addSubview(collectionView)
         collectionView.pinTo(self)
+        self.collectionView.backgroundColor = .clear
+        self.collectionView.backgroundView = UIView()
         
     }
     
@@ -184,22 +190,26 @@ class StaticTokenFieldCollectionViewCell: UICollectionViewCell, ReusableView {
     var titleLabel: UILabel!
     
     func configure(with title: String, style: TokenStyle) {
-        titleLabel = UILabel()
-        titleLabel.text = title
+        
+        if let existingLabel = contentView.viewWithTag(99999) as? UILabel {
+            titleLabel = existingLabel
+        } else {
+            titleLabel = UILabel()
+            titleLabel.tag = 99999
+            contentView.addSubview(titleLabel)
+        }
+        
         titleLabel.textColor = style.textColor
         titleLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(titleLabel)
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
         self.layer.cornerRadius = 10
         self.backgroundColor = style.backgroundColor
-    }
-    
-    override func prepareForReuse() {
-        titleLabel = UILabel()
+        titleLabel.text = title
+        layoutIfNeeded()
     }
 }
 
