@@ -13,14 +13,15 @@
 ## Current features
 
 - [x] Initial setup of creating simple tokens in SwiftUI
+- [x] Initial setup of creating customizable tokens in a textfield
 - [x] Support for Swift Package Manager
 - [x] UIKit Support
 
 ## Features in progress
 
-- Initial setup of creating simple tokens in SwiftUI
-- Support for iOS/Mac OS X/tvOS/watchOS/Linux
 - Support for CocoaPods
+- Support for autocomplete/suggestion when using textfields
+- Add documentation for SwiftTokenTextField/SwiftTokenTextView
 
 ## SwiftUI Examples
 
@@ -77,6 +78,29 @@ struct MainView: View {
 }
 ```
 
+## Textfield support
+
+### We also support tokens inside textfields. Not only showing them but also creating them. You can simply create a SwiftTokenTextView and add a state property to it with SwiftToken. The SwiftToken object supports whatever object you want to use with it.
+
+```
+    @State var tokens: [SwiftToken] = []
+    
+    var body: some View {
+        SwiftTokenTextView(width: 300, height: 44, tokens: $tokens)
+            .frame(width: 400, height: 44, alignment: .center)
+    }
+```
+
+### You can use the same TokenStyle that you used for a static token view by providing it as the first argument.  
+
+```
+    var body: some View {
+        SwiftTokenTextView(tokenStyle: CustomTokenStyle(), width: 300, height: 44, tokens: $tokens)
+            .frame(width: 400, height: 44, alignment: .center)
+    }
+```
+
+### Currently we support most of the styling and options in UIKit where the SwiftUI version is limited. if the default swiftUI implementation doesn't work for your use-case you can check out the SwiftTokenTextView file and use it as a guideline to create your own variant. But feel free to make a pull request if you want to improve the default version! 
 
 ## UIKit Examples
 
@@ -111,6 +135,37 @@ struct CustomTokenStyle: TokenStyle {
 
 ```
 tokenView.style = CustomTokenStyle
+```
+
+## Textfield support
+
+### we also support textfields for UIKIT. Just create an instance of SwiftTokenTextField and it works the same as swiftUI.
+
+```
+class ViewController: UIViewController {
+    
+    var tokenTextField: SwiftTokenTextField = {
+        let view = SwiftTokenTextField(frame: CGRect(x: 0, y: 0, width: 400, height: 56))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.style = .squared
+        view.minimumCharactersToSearch = 0
+        view.shouldAddTokenFromTextInput = true
+        view.tokenizingCharacters = [",", "."]
+        return view
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(tokenTextField)
+        tokenTextField.translatesAutoresizingMaskIntoConstraints = false
+        tokenTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tokenTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        tokenTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        tokenTextField.heightAnchor.constraint(equalToConstant: 44).isActive = true
+    }
+}
 ```
 
 ## Requirements
