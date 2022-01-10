@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol StaticToken {
+@objc public protocol StaticToken {
     
     var id: Int { get }
     func tokenName() -> String
