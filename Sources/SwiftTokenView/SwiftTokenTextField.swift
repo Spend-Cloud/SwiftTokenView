@@ -317,6 +317,9 @@ open class SwiftTokenTextField: UIView {
         }
     }
     
+    /// enable to show and use search results
+    @objc open var shouldShowSearchResults: Bool = false
+    
     //MARK: - Constructors
     //__________________________________________________________________________________
     //
@@ -373,7 +376,7 @@ open class SwiftTokenTextField: UIView {
         _searchTableView.frame = CGRect(x: 0, y: frame.height, width: frame.width, height: _searchResultHeight)
         _searchTableView.delegate = self
         _searchTableView.dataSource = self
-        
+        shouldShowSearchResults = false
         _hideSearchResults()
         _intrinsicContentHeight = _tokenField.bounds.height
         invalidateIntrinsicContentSize()
@@ -665,7 +668,7 @@ open class SwiftTokenTextField: UIView {
      - parameter string: Search keyword
      */
     fileprivate func _startSearchWithString(_ string: String) {
-        if (!_canAddMoreToken()) {
+        if (!_canAddMoreToken() || !shouldShowSearchResults) {
             return
         }
         _showEmptyResults()

@@ -239,7 +239,6 @@ open class SwiftTokenField: UITextField {
         _updateText()
         
         // Fix the bug which doesn't update the UI when _selfFrame is not set.
-        // https://github.com/khawars/SwiftTokenTextField/issues/11
         
         if (tokens.count > 0) {
             updateLayout()
