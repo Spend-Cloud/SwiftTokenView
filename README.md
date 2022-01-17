@@ -16,10 +16,10 @@
 - [x] Initial setup of creating customizable tokens in a textfield
 - [x] Support for Swift Package Manager
 - [x] UIKit Support
+- [x] Support for CocoaPods
 
 ## Features in progress
 
-- Support for CocoaPods
 - Support for autocomplete/suggestion when using textfields
 - Add documentation for SwiftTokenTextField/SwiftTokenTextView
 
@@ -179,6 +179,25 @@ class ViewController: UIViewController {
 ### Swift Package Manager(requires Xcode 11)
 
 * Add package into Project settings -> Swift Packages
+
+### CocoaPods
+* Add a pod entry for SwiftTokenView to your Podfile
+
+```
+source 'https://github.com/Spend-Cloud/SwiftTokenView.git'
+platform :ios, '13.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'SwiftTokenView'
+end
+```
+
+* Then, run the following command:
+
+```
+$ pod install
+```
 
 ## Project status
 
