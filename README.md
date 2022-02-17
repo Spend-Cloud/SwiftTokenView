@@ -17,10 +17,10 @@
 - [x] Support for Swift Package Manager
 - [x] UIKit Support
 - [x] Support for CocoaPods
+- [x] Support for autocomplete/suggestion when using textfields
 
 ## Features in progress
 
-- Support for autocomplete/suggestion when using textfields
 - Add documentation for SwiftTokenTextField/SwiftTokenTextView
 
 ## SwiftUI Examples
@@ -97,6 +97,42 @@ struct MainView: View {
     var body: some View {
         SwiftTokenTextView(tokenStyle: CustomTokenStyle(), width: 300, height: 44, tokens: $tokens)
             .frame(width: 400, height: 44, alignment: .center)
+    }
+```
+
+## Show suggestions when using textfields
+
+### We also support showing suggestions inside textfields. You can simply create your own method to handle the suggestions and pass a callback to the SwiftTokenTextView..
+
+```
+    struct MainView: View {
+        
+        @State var tokens: [SwiftToken] = []
+        
+        var body: some View {
+            SwiftTokenTextView(width: 300, height: 44, tokens: $tokens, performSearch: { query in
+                performSearch(query)
+            }, displayTitleForObject: { object in
+                (object as! SampleObject).tokenName()
+            })
+            .frame(width: UIScreen.main.bounds.width, height: 44, alignment: .center)
+        }
+        
+        private func performSearch(_ query: String) -> [SampleObject] {
+            
+            let list = [
+                SampleObject(id: 1, name: "Apple"),
+                SampleObject(id: 2, name: "Banana"),
+                SampleObject(id: 3, name: "Orange"),
+                SampleObject(id: 3, name: "Lemon")
+            ]
+            
+            if (query.isEmpty) {
+                return list
+            }
+            
+            return list.filter { $0.name.range(of: query, options: .caseInsensitive) != nil }
+        }
     }
 ```
 
