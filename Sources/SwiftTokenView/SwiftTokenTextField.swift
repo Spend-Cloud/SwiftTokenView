@@ -335,7 +335,7 @@ open class SwiftTokenTextField: UIView {
         super.init(frame: frame)
         _commonSetup()
     }
-    
+        
     /**
      Create and inialize SwiftTokenTextField object from Interface builder
      

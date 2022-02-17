@@ -18,11 +18,11 @@ public struct SwiftTokenTextView: UIViewRepresentable {
         }
         
         public func tokenView(_ tokenView: SwiftTokenTextField, performSearchWithString string: String, completion: ((Array<AnyObject>) -> Void)?) {
-            
+            completion!(parent.performSearch?(string) ?? [])
         }
         
         public func tokenView(_ tokenView: SwiftTokenTextField, displayTitleForObject object: AnyObject) -> String {
-            object as? String ?? ""
+            parent.displayTitleForObject?(object) ?? ""
         }
 
         public func tokenView(_ tokenView: SwiftTokenTextField, didAddToken token: SwiftToken) {
@@ -52,12 +52,16 @@ public struct SwiftTokenTextView: UIViewRepresentable {
     let width: Int
     let height: Int
     let style: TokenStyle
+    var performSearch: ((String) -> [AnyObject])?
+    var displayTitleForObject: ((AnyObject) -> String)?
     
-    public init(tokenStyle: TokenStyle? = nil, width: Int, height: Int, tokens: Binding<[SwiftToken]>) {
+    public init(tokenStyle: TokenStyle? = nil, width: Int, height: Int, tokens: Binding<[SwiftToken]>, performSearch: ((String) -> [AnyObject])? = nil, displayTitleForObject: ((AnyObject) -> String)? = nil) {
         self._tokens = tokens
         self.width = width
         self.height = height
         self.style = tokenStyle ?? DefaultStyle()
+        self.performSearch = performSearch
+        self.displayTitleForObject = displayTitleForObject
     }
     
     public func makeUIView(context: Context) -> some SwiftTokenTextField {
@@ -65,8 +69,8 @@ public struct SwiftTokenTextView: UIViewRepresentable {
         view.descriptionText = NSLocalizedString("Selection", comment: "")
         view.style = .squared
         view.minimumCharactersToSearch = 0
-        view.searchResultHeight = CGFloat(0)
         view.searchResultBackgroundColor = .tertiarySystemBackground
+        view.shouldShowSearchResults = performSearch != nil
         view.promptColor = .secondaryLabel
         view.placeholderColor = .tertiaryLabel
         view.backgroundColor = .secondarySystemBackground
