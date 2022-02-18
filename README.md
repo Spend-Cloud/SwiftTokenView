@@ -169,9 +169,9 @@ class ViewController: UIViewController {
 ```
 
 ## Screenshots
-![example1](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/screenshots/example1.png)
-![example2](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/screenshots/example2.png)
-![example3](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/screenshots/example3.png)
+![example1](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/Screenshots/example1.png)
+![example2](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/Screenshots/example2.png)
+![example3](https://raw.githubusercontent.com/Spend-Cloud/SwiftTokenView/Screenshots/example3.png)
 
 ## Requirements
 
