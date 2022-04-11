@@ -61,11 +61,13 @@ class StaticTokenLayout : UICollectionViewFlowLayout {
 public protocol TokenStyle {
     var textColor: UIColor { get set }
     var backgroundColor: UIColor { get set }
+    var cornerRadius: CGFloat { get set }
 }
 
 struct DefaultStyle: TokenStyle {
     var textColor: UIColor = .white
     var backgroundColor: UIColor = .systemBlue
+    var cornerRadius: CGFloat = 10
 }
 
 public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -206,7 +208,7 @@ class StaticTokenFieldCollectionViewCell: UICollectionViewCell, ReusableView {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = style.cornerRadius
         self.backgroundColor = style.backgroundColor
         titleLabel.text = title
         layoutIfNeeded()
