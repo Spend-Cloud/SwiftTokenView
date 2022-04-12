@@ -74,6 +74,8 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
     
     public var style: TokenStyle = DefaultStyle()
     
+    public var placeholderText: String = "%@ selected"
+    
     private let collectionView: UICollectionView = {
         
         let layout = StaticTokenLayout()
@@ -173,7 +175,7 @@ public class StaticTokenView : UIView, UICollectionViewDelegate, UICollectionVie
     
     private func addPlaceholder(for tokens: [StaticToken]) {
         
-        placeholderLabel.text = String(format: NSLocalizedString("%@ selected", comment: ""), "\(tokens.count)")
+        placeholderLabel.text = String(format: placeholderText, "\(tokens.count)")
         collectionView.addSubview(placeholderLabel)
         collectionView.layoutIfNeeded()
     }
