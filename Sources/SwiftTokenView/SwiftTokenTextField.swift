@@ -846,9 +846,14 @@ extension SwiftTokenTextField : UITextFieldDelegate {
         // Remove character at that index
         if (string.isEmpty) {
             let first = String(olderText![..<olderText!.index(olderText!.startIndex, offsetBy: range.location)])
-            let second = String(olderText![olderText!.index(olderText!.startIndex, offsetBy: range.location+1)..<olderText!.endIndex])
-            searchString = first + second
-            searchString = searchString.trimmingCharacters(in: CharacterSet.whitespaces)
+            if let startIndex = olderText?.index(olderText!.startIndex, offsetBy: range.location + 1, limitedBy: olderText!.endIndex) {
+                let second = String(olderText![startIndex..<olderText!.endIndex])
+                searchString = first + second
+                searchString = searchString.trimmingCharacters(in: CharacterSet.whitespaces)
+            } else {
+                searchString = first
+                searchString = searchString.trimmingCharacters(in: CharacterSet.whitespaces)
+            }
             
         } else { // new character added
             if (tokenizingCharacters.contains(string) && olderText != SwiftTokenTextEmpty && olderTextTrimmed != "") {
